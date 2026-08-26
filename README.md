@@ -14,29 +14,37 @@ La práctica se basa en los Proyectos 4 y 5 de Nand2Tetris y comprende:
 programación en lenguaje ensamblador Hack y construcción de los componentes
 principales de la arquitectura Hack: Memory, CPU y Computer.
 
-## Contenido
+---
 
-### Proyecto 4 – Lenguaje ensamblador
+# Contenido
 
-Programas oficiales:
+## Proyecto 4
+
+Implementación de programas en lenguaje ensamblador Hack para trabajar con operaciones aritméticas, control de flujo y manipulación de memoria.
+
+### Componentes:
 
 - `Mult.asm`
 - `Fill.asm`
 
-Programas adicionales del curso:
+### Programas adicionales del curso:
 
 - `SumN.asm`
 - `CopyBlock.asm`
 
-### Proyecto 5 – Hardware
+---
 
-Componentes:
+## Proyecto 5
+
+Implementación e integración de los componentes principales de hardware de la plataforma Hack.
+
+### Componentes:
 
 - `Memory.hdl`
 - `CPU.hdl`
 - `Computer.hdl`
 
-## Estructura del repositorio
+# Estructura del repositorio
 
 ```text
 proyecto04/
@@ -51,26 +59,3 @@ proyecto05/
 
 README.md
 ```
-
-## Requisitos
-
-Los componentes deben ser compatibles con la arquitectura Hack y ejecutarse
-correctamente en los simuladores oficiales de Nand2Tetris.
-
-No se deben modificar los simuladores ni las pruebas oficiales, ni utilizar
-herramientas externas que reemplacen la implementación en HDL o assembler.
-
-## Objetivos
-
-- Comprender el modelo de ejecución de instrucciones de Hack.
-- Implementar programas en assembler Hack.
-- Manipular memoria mediante direccionamiento.
-- Construir `Memory`, `CPU` y `Computer`.
-- Integrar hardware y software en una arquitectura Hack funcional.
-- Mantener un historial de Git claro y consistente.
-
-## Estado
-
-Repositorio base preparado a partir de la estructura y estilo utilizados en
-la Práctica 1. Los archivos de implementación y las evidencias de pruebas
-deben incorporarse en las carpetas correspondientes.
