@@ -1,7 +1,7 @@
 @R0
 D=M
 
-@end
+@cl
 D;JEQ
 
 @N
@@ -21,11 +21,12 @@ M=D
     @loop
     D;JNE
 
-@sum
-D=M
-M=0
-@R1
-M=D
+(cl)
+    @sum
+    D=M
+    M=0
+    @R1
+    M=D
 
 
 (end)

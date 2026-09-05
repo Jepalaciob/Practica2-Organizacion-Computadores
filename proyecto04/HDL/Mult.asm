@@ -1,13 +1,13 @@
 @R0
 D=M
 
-@end
+@cl
 D;JEQ
 
 @R1
 D=M
 
-@end
+@cl
 D;JEQ
 
 @j
@@ -32,10 +32,11 @@ D=M
 @R2
 M=D
 
-@resultado
-M=0
-@j
-M=0
+(cl)
+    @resultado
+    M=0
+    @j
+    M=0
 
 (end)
     @end

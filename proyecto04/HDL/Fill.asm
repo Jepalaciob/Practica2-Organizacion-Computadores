@@ -70,7 +70,7 @@ M=D
     @SCREEN
     D=A
     @pos
-    M=A
+    M=D
 
     @KBD
     D=M
