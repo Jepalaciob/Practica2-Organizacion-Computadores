@@ -37,8 +37,6 @@ M=D
     M=0
     @j
     M=0
-    @R2
-    M=0
 
 (end)
     @end
