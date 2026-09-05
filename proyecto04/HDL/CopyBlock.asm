@@ -13,6 +13,9 @@ M=D
 @R2
 D=M
 
+@end
+D;JEQ
+
 @N
 M=D
 

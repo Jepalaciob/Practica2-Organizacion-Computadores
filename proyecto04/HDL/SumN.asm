@@ -1,6 +1,9 @@
 @R0
 D=M
 
+@end
+D;JEQ
+
 @N
 M=D
 

@@ -1,5 +1,14 @@
+@R0
+D=M
+
+@end
+D;JEQ
+
 @R1
 D=M
+
+@end
+D;JEQ
 
 @j
 M=D
