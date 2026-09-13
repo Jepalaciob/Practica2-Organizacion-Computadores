@@ -1,0 +1,171 @@
+CHIP CPU {
+
+    IN  inM[16],
+        instruction[16],
+        reset;
+
+    OUT outM[16],
+        writeM,
+        addressM[15],
+        pc[15];
+
+    PARTS:
+    // Tipo de instrucción
+    Not(in=instruction[15], out=isAInstruction);
+    Or(a=instruction[15], b=false, out=isCInstruction);
+
+    // Registro A
+    Mux16(
+        a[0..14]=instruction[0..14],
+        a[15]=false,
+        b=aluOut,
+        sel=isCInstruction,
+        out=aRegisterIn
+    );
+
+    And(
+        a=isCInstruction,
+        b=instruction[5],
+        out=loadAFromC
+    );
+
+    Or(
+        a=isAInstruction,
+        b=loadAFromC,
+        out=loadA
+    );
+
+    ARegister(
+        in=aRegisterIn,
+        load=loadA,
+        out=aRegisterOut
+    );
+
+    // Registro D
+    And(
+        a=isCInstruction,
+        b=instruction[4],
+        out=loadD
+    );
+
+    DRegister(
+        in=aluOut,
+        load=loadD,
+        out=dRegisterOut
+    );
+
+    // Entrada Y de la ALU
+    Mux16(
+        a=aRegisterOut,
+        b=inM,
+        sel=instruction[12],
+        out=aluY
+    );
+
+    // ALU
+    ALU(
+        x=dRegisterOut,
+        y=aluY,
+        zx=instruction[11],
+        nx=instruction[10],
+        zy=instruction[9],
+        ny=instruction[8],
+        f=instruction[7],
+        no=instruction[6],
+        out=aluOut,
+        zr=aluIsZero,
+        ng=aluIsNegative
+    );
+
+    // Salida hacia Memory
+    Or16(
+        a=aluOut,
+        b=false,
+        out=outM
+    );
+
+    And(
+        a=isCInstruction,
+        b=instruction[3],
+        out=writeM
+    );
+
+    // Dirección de Memory
+    Or16(
+        a=aRegisterOut,
+        b=false,
+        out[0..14]=addressM
+    );
+
+    // Condiciones de salto
+
+    // JGT: ALU > 0
+    Not(in=aluIsZero, out=notZero);
+    Not(in=aluIsNegative, out=notNegative);
+
+    And(
+        a=notZero,
+        b=notNegative,
+        out=isJGT
+    );
+
+    // JEQ: ALU == 0
+    And(
+        a=aluIsZero,
+        b=true,
+        out=isJEQ
+    );
+
+    // JLT: ALU < 0
+    And(
+        a=aluIsNegative,
+        b=true,
+        out=isJLT
+    );
+
+    // Bits de jump
+    And(
+        a=instruction[2],
+        b=isJLT,
+        out=jumpLT
+    );
+
+    And(
+        a=instruction[1],
+        b=isJEQ,
+        out=jumpEQ
+    );
+
+    And(
+        a=instruction[0],
+        b=isJGT,
+        out=jumpGT
+    );
+
+    Or(
+        a=jumpLT,
+        b=jumpEQ,
+        out=jumpLTorEQ
+    );
+
+    Or(
+        a=jumpLTorEQ,
+        b=jumpGT,
+        out=shouldJump
+    );
+
+    // Program Counter
+    And(
+        a=isCInstruction,
+        b=shouldJump,
+        out=loadPC
+    );
+
+    PC(
+        in=aRegisterOut,
+        load=loadPC,
+        inc=true,
+        reset=reset,
+        out[0..14]=pc
+    );
+}
