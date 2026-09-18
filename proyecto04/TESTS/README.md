@@ -1,1 +1,0 @@
-La captura del test `fill 2.png` no aparece que key se está apretando porque para tomar la captura de pantalla se quita automaticamente la selección, pero funciona con la oprimiendo la tecla `c`.
