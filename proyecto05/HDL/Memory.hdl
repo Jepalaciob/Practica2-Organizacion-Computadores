@@ -1,0 +1,58 @@
+CHIP Memory {
+    IN in[16], load, address[15];
+    OUT out[16];
+
+    PARTS:
+    // Seleccionar RAM16K o dispositivos de entrada/salida
+    DMux(
+        in=load,
+        sel=address[14],
+        a=loadRAM,
+        b=loadIO
+    );
+
+    // Seleccionar Screen o Keyboard
+    DMux(
+        in=loadIO,
+        sel=address[13],
+        a=loadScreen,
+        b=loadKeyboard
+    );
+
+    // RAM: direcciones 0 - 16383
+    RAM16K(
+        in=in,
+        load=loadRAM,
+        address=address[0..13],
+        out=ramOut
+    );
+
+    // Screen: direcciones 16384 - 24575
+    Screen(
+        in=in,
+        load=loadScreen,
+        address=address[0..12],
+        out=screenOut
+    );
+
+    // Keyboard: dirección 24576
+    Keyboard(
+        out=keyboardOut
+    );
+
+    // Seleccionar Screen o Keyboard
+    Mux16(
+        a=screenOut,
+        b=keyboardOut,
+        sel=address[13],
+        out=ioOut
+    );
+
+    // Seleccionar RAM o dispositivos
+    Mux16(
+        a=ramOut,
+        b=ioOut,
+        sel=address[14],
+        out=out
+    );
+}
