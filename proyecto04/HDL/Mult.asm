@@ -1,3 +1,6 @@
+@resultado
+M=0
+
 @R0
 D=M
 
@@ -32,12 +35,17 @@ D=M
 @R2
 M=D
 
+@clean
+0;JMP
+
 (cl)
+    @R2
+    M=0
+
+(clean)
     @resultado
     M=0
     @j
-    M=0
-    @R2
     M=0
 
 (end)
